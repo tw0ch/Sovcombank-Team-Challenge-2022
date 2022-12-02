@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
+import '../../server/remote_service.dart';
 
 class RegistrationBeginPage extends StatelessWidget {
-  const RegistrationBeginPage({Key? key}) : super(key: key);
+  RegistrationBeginPage({Key? key}) : super(key: key);
+
+  final _loginController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +34,13 @@ class RegistrationBeginPage extends StatelessWidget {
               ),
               // SizedBox(height: 80),
               Expanded(child: Container()),
-              const _LoginTextfield(),
+              _loginTextField(),
               const SizedBox(height: 30),
-              const _PasswordTextfield(),
+              _passwordTextfield(),
               const SizedBox(height: 30),
-              const _PasswordConfirmTextfield(),
-              const SizedBox(height: 30),
-              const _NextButton(),
+              // const _passwordConfirmTextfield(),
+              // const SizedBox(height: 30),
+              _nextButton(context),
               Expanded(flex: 2, child: Container()),
             ],
           ),
@@ -41,20 +48,8 @@ class RegistrationBeginPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class _LoginTextfield extends StatefulWidget {
-  const _LoginTextfield({Key? key}) : super(key: key);
-
-  @override
-  State<_LoginTextfield> createState() => __LoginTextfield();
-}
-
-class __LoginTextfield extends State<_LoginTextfield> {
-  final _loginController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _loginTextField() {
     return TextField(
       controller: _loginController,
       obscureText: false,
@@ -70,20 +65,25 @@ class __LoginTextfield extends State<_LoginTextfield> {
       ),
     );
   }
-}
 
-class _PasswordTextfield extends StatefulWidget {
-  const _PasswordTextfield({Key? key}) : super(key: key);
+  Widget _phoneTextField() {
+    return TextField(
+      controller: _phoneController,
+      obscureText: false,
+      decoration: const InputDecoration(
+        hintText: 'Номер телефона',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        filled: true, //<-- SEE HERE
+        fillColor: Color(0xFFDDDDDD),
+      ),
+    );
+  }
 
-  @override
-  State<_PasswordTextfield> createState() => __PasswordTextfield();
-}
-
-class __PasswordTextfield extends State<_PasswordTextfield> {
-  final _passwordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _passwordTextfield() {
     return TextField(
       controller: _passwordController,
       obscureText: true,
@@ -99,50 +99,25 @@ class __PasswordTextfield extends State<_PasswordTextfield> {
       ),
     );
   }
-}
 
-class _PasswordConfirmTextfield extends StatefulWidget {
-  const _PasswordConfirmTextfield({Key? key}) : super(key: key);
-
-  @override
-  State<_PasswordConfirmTextfield> createState() => __PasswordConfirmTextfield();
-}
-
-class __PasswordConfirmTextfield extends State<_PasswordConfirmTextfield> {
-  final _passwordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _passwordController,
-      obscureText: true,
-      decoration: const InputDecoration(
-        hintText: 'Подтверждение пароля',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-        filled: true, //<-- SEE HERE
-        fillColor: Color(0xFFDDDDDD),
-      ),
-    );
+  void login(String login, String age, BuildContext context) async {
+    if (await RemoteService().postUser({'username': login, 'age': age}) !=
+        null) {
+      Navigator.pushNamed(context, '/profile_page');
+    }
   }
-}
 
-class _NextButton extends StatelessWidget {
-  const _NextButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _nextButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (true) {
-          Navigator.pushNamed(context, '/passport_photo_verification');
-        }
+        login(
+          _loginController.text.toString(),
+          _passwordController.text.toString(),
+          context,
+        );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF12D18E   ),
+        backgroundColor: const Color(0xFF12D18E),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // <-- Radius
         ),

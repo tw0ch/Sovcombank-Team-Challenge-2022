@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:stock_app/screens.dart';
 
 bool newUser = false;
 
 class EntryPage extends StatelessWidget {
-  const EntryPage({Key? key}) : super(key: key);
+  EntryPage({Key? key}) : super(key: key);
+
+  final _loginController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  // void login(String email, String password) {
+  //   try {
+  //     Response response =
+  //   }cath{
+  //     print(e.toString());
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +43,13 @@ class EntryPage extends StatelessWidget {
               ),
               // SizedBox(height: 80),
               Expanded(child: Container()),
-              const _LoginTextfield(),
+              _loginTextField(),
               const SizedBox(height: 30),
-              const _PhoneTextfield(),
+              _phoneTextField(),
               const SizedBox(height: 30),
-              const _PasswordTextfield(),
+              _passwordTextfield(),
               const SizedBox(height: 30),
-              const _NextButton(),
+              _nextButton(context),
               const SizedBox(height: 20),
               InkWell(
                 child: const Text(
@@ -55,20 +68,8 @@ class EntryPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class _LoginTextfield extends StatefulWidget {
-  const _LoginTextfield({Key? key}) : super(key: key);
-
-  @override
-  State<_LoginTextfield> createState() => __LoginTextfield();
-}
-
-class __LoginTextfield extends State<_LoginTextfield> {
-  final _loginController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _loginTextField() {
     return TextField(
       controller: _loginController,
       obscureText: false,
@@ -84,20 +85,8 @@ class __LoginTextfield extends State<_LoginTextfield> {
       ),
     );
   }
-}
 
-class _PhoneTextfield extends StatefulWidget {
-  const _PhoneTextfield({Key? key}) : super(key: key);
-
-  @override
-  State<_PhoneTextfield> createState() => __PhoneTextfield();
-}
-
-class __PhoneTextfield extends State<_PhoneTextfield> {
-  final _phoneController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _phoneTextField() {
     return TextField(
       controller: _phoneController,
       obscureText: false,
@@ -113,20 +102,8 @@ class __PhoneTextfield extends State<_PhoneTextfield> {
       ),
     );
   }
-}
 
-class _PasswordTextfield extends StatefulWidget {
-  const _PasswordTextfield({Key? key}) : super(key: key);
-
-  @override
-  State<_PasswordTextfield> createState() => __PasswordTextfield();
-}
-
-class __PasswordTextfield extends State<_PasswordTextfield> {
-  final _passwordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _passwordTextfield() {
     return TextField(
       controller: _passwordController,
       obscureText: true,
@@ -142,13 +119,8 @@ class __PasswordTextfield extends State<_PasswordTextfield> {
       ),
     );
   }
-}
 
-class _NextButton extends StatelessWidget {
-  const _NextButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _nextButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         if (true) {}
@@ -171,4 +143,5 @@ class _NextButton extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -13,7 +13,7 @@ class User {
     required this.age,
     this.createdAt,
     this.updatedAt,
-    this.notifications,
+    // this.notifications,
   });
 
   int? id;
@@ -23,7 +23,7 @@ class User {
   int age;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<dynamic>? notifications;
+  // List<dynamic>? notifications;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     id: json["id"],
@@ -33,7 +33,7 @@ class User {
     age: json["age"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    notifications: List<dynamic>.from(json["notifications"].map((x) => x)),
+    // notifications: List<dynamic>.from(json["notifications"].map((x) => )),
   );
 
   Map<String, dynamic> toJson() => {
@@ -44,7 +44,7 @@ class User {
     "age": age,
     "created_at": "0",
     "updated_at": "0",
-    "notifications": "0",
+    // "notifications": "0",
   };
 }
 

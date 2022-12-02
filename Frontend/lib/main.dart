@@ -10,9 +10,9 @@ void main() async {
       debugShowCheckedModeBanner: false,
       initialRoute: '/entry',
       routes: {
-        '/entry': (context) => const EntryPage(),
+        '/entry': (context) => EntryPage(),
         '/registration': (context) => const RegistrationPage(),
-        '/registration/registration_begin': (context) => const RegistrationBeginPage(),
+        '/registration/registration_begin': (context) => RegistrationBeginPage(),
         '/registration/registration_begin/registration_end': (context) => const RegistrationEndPage(),
         '/registration/registration_begin/registration_done': (context) => const RegistrationDonePage(),
         '/passport_photo_verification': (context) => const Passport_photo_verification(),
